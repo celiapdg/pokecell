@@ -1,5 +1,9 @@
+import { MainLayout } from "./layouts/MainLayout"
+
 export const TypesPage = () => {
     return (
-        <div>TypesPage</div>
+        <MainLayout>
+            <div>Types page</div>
+        </MainLayout>
     )
 }

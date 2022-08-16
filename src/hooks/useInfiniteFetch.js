@@ -18,6 +18,7 @@ export const useInfiniteFetch = (limit, offset) => {
             const finalListPromises = data.results.map(async (poke) => {
                 const res = await axios.get(poke.url);
                 poke.imgDef = res.data.sprites.other["official-artwork"].front_default;
+                poke.types = res.data.types.map(type => type.type);
                 // console.log(res.data.sprites.other.home.front_default);
                 // console.log(res.data.sprites.other.home.front_shiny);
                 return poke;
@@ -38,3 +39,5 @@ export const useInfiniteFetch = (limit, offset) => {
 
     return { loading, error, list };
 }
+
+// fuente: https://medium.com/suyeonme/react-how-to-implement-an-infinite-scroll-749003e9896a

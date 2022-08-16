@@ -1,5 +1,10 @@
-export const MainLayout = () => {
+import { Navbar } from "../components/Navbar"
+
+export const MainLayout = ({ children }) => {
     return (
-        <div>MainLayout</div>
+        <>
+            <Navbar />
+            {children}
+        </>
     )
 }

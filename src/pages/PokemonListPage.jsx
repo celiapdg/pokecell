@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useInfiniteFetch } from "../hooks/useInfiniteFetch";
 import { ContentCard } from "./components/ContentCard";
-
+import { TypeTags } from "./components/TypeTags";
 
 
 export const PokemonListPage = () => {
@@ -10,7 +10,7 @@ export const PokemonListPage = () => {
     const limit = 24;
     const [offset, setOffset] = useState(0);
     const { loading, error, list } = useInfiniteFetch(limit, offset);
-    console.log(list)
+    // console.log(list)
     const loader = useRef(null);
 
     const handleObserver = useCallback((entries) => {
@@ -23,7 +23,7 @@ export const PokemonListPage = () => {
     useEffect(() => {
         const option = {
             root: null,
-            rootMargin: "20px",
+            rootMargin: "40px",
             threshold: 0
         };
         const observer = new IntersectionObserver(handleObserver, option);
@@ -33,12 +33,22 @@ export const PokemonListPage = () => {
     return (
         <>
             <Grid container>
-                {list.map((pokemon) => (
-                    <Grid item p={2} xs={6} sm={4} md={3} xl={2}>
+                {list.map((pokemon, i) => (
+                    <Grid item
+                        p={2} xs={6} sm={4} md={3} xl={2}
+                        key={i}>
                         <ContentCard
                             title={pokemon.name}
                             route='/pokemon'
-                            img={pokemon.imgDef} />
+                            img={pokemon.imgDef}>
+                            {pokemon.types.map((type, i) => (
+                                <TypeTags
+                                    key={`${pokemon.name}-${type.name}`}
+                                    name={type.name}
+                                    url={type.url} />
+                            ))
+                            }
+                        </ContentCard>
                     </Grid>
                 ))}
 
