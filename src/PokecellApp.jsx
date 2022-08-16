@@ -1,7 +1,7 @@
-import { LandingPage } from "./pages/LandingPage"
+import { PokecellRoutes } from "./router/PokecellRoutes"
 
 export const PokecellApp = () => {
     return (
-        <LandingPage></LandingPage>
+        <PokecellRoutes />
     )
 }

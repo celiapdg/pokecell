@@ -1,0 +1,5 @@
+export * from './LandingPage'
+export * from './PokemonDetailPage'
+export * from './PokemonListPage'
+export * from './SkillsPage'
+export * from './TypesPage'
