@@ -1,5 +1,57 @@
+import { MainLayout } from "./layouts/MainLayout"
+
 export const SkillsPage = () => {
     return (
-        <div>SkillsPage</div>
+        <MainLayout>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+            <div>Skills page</div>
+
+        </MainLayout>
     )
 }

@@ -13,8 +13,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { CloudUploadOutlined } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
-const pages = ['Pokemon', 'Types', 'Skills'];
+const pages = ['pokemon', 'types', 'skills'];
 const rightMenu = ['Import', 'Export'];
 
 export const Navbar = () => {
@@ -44,7 +45,7 @@ export const Navbar = () => {
                 <Toolbar disableGutters>
                     <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                     <Typography
-                        variant="h6"
+                        variant="h4"
                         noWrap
                         component="a"
                         href="/"
@@ -92,14 +93,14 @@ export const Navbar = () => {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                    <Typography variant="h6" textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
-                        variant="h5"
+                        variant="h4"
                         noWrap
                         component="a"
                         href=""
@@ -116,14 +117,18 @@ export const Navbar = () => {
                     >
                         POKECELL
                     </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{
+                        flexGrow: 1, display: { xs: 'none', md: 'flex' }
+                    }}>
                         {pages.map((page) => (
                             <Button
+                                component={Link}
+                                to={`/${page}`}
                                 key={page}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
+                                <Typography px={2} variant="h6" textAlign="center">{page}</Typography>
                             </Button>
                         ))}
                     </Box>
@@ -131,7 +136,9 @@ export const Navbar = () => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open rightMenu">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <CloudUploadOutlined />
+                                <CloudUploadOutlined sx={{
+                                    color: 'white'
+                                }} />
                             </IconButton>
                         </Tooltip>
                         <Menu
