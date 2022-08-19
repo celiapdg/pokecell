@@ -13,7 +13,7 @@ export const useFetch = (url) => {
             await setLoading(true);
             await setError(false);
             const { data } = await axios.get(url);
-            console.log(data)
+
             if (!!data.results) await setRes(data.results);
             else await setRes(data)
             setLoading(false);

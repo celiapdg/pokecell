@@ -85,10 +85,7 @@ export const TypesDetailPage = () => {
                                                             }
                                                         </TableCell>
                                                     </TableRow>
-                                                    <TableRow
-
-                                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                    >
+                                                    <TableRow>
                                                         <TableCell component="th" scope="row">
                                                             1/2 </TableCell>
                                                         <TableCell align="center">
@@ -116,10 +113,7 @@ export const TypesDetailPage = () => {
                                                             }
                                                         </TableCell>
                                                     </TableRow>
-                                                    <TableRow
-
-                                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                    >
+                                                    <TableRow>
                                                         <TableCell component="th" scope="row">
                                                             Zero
                                                         </TableCell>

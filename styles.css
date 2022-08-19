@@ -8,3 +8,16 @@ html {
     background-color: #FFFDE3;
     scroll-behavior: smooth;
 }
+
+/* This only changes this particular animation duration */
+.second {
+    animation-delay: 250ms;
+}
+
+.third {
+    animation-delay: 500ms;
+}
+
+.plain {
+    pointer-events: none;
+}

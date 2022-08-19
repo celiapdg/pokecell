@@ -1,3 +1,6 @@
 export * from './ContentCard'
 export * from './Navbar'
 export * from './TypeTag'
+export * from './AbilitiesTable'
+export * from './StatsTable'
+export * from './EvolutionChain'

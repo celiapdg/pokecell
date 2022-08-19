@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useInfiniteFetch } from "../hooks/useInfiniteFetch";
 import { ContentCard, TypeTag } from "./components";
+import { LoadingMessage } from "./components/LoadingMessage";
 import { MainLayout } from "./layouts/MainLayout";
 
 
@@ -33,7 +34,9 @@ export const PokemonListPage = () => {
     return (
         <>
             <MainLayout>
-                <Grid container>
+                <Grid container
+                    alignItems="center"
+                    justifyContent="center">
                     {list.map((pokemon, i) => (
                         <Grid item
                             p={2} xs={6} sm={4} md={3} xl={2}
@@ -54,7 +57,7 @@ export const PokemonListPage = () => {
                         </Grid>
                     ))}
 
-                    {loading && <p>Loading...</p>}
+                    {loading && <LoadingMessage variant='h5' />}
                     {error && <p>Error!</p>}
                     <div ref={loader} />
                 </Grid>

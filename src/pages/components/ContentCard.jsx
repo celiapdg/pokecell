@@ -2,13 +2,14 @@ import { Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from "
 import { Link } from "react-router-dom"
 
 export const ContentCard = ({ title,
-    img = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/132.png",
-    route,
+    img = "../src/assets/habitat/null.jpeg",
+    route = '',
     variant,
-    children }) => {
+    children, className = '',
+    elevation = 1 }) => {
     return (
-        <Card >
-            <CardActionArea component={Link} to={route}>
+        <Card elevation={0}>
+            <CardActionArea className={className} component={Link} to={route}>
                 <CardMedia
                     component="img"
                     height="240"
