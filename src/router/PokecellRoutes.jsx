@@ -1,11 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom"
-import { LandingPage, PokemonListPage, SkillsPage, TypesPage, TypesDetailPage, PokemonDetailPage } from "../pages"
+import { LandingPage, PokemonDetailPage, PokemonListPage, SkillsPage, TypesDetailPage, TypesPage } from "../pages"
 
 export const PokecellRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="pokemon" element={<PokemonListPage />} />
+            <Route path="pokemons/*" element={<PokemonListPage />} />
+            <Route path="pokemons" element={<PokemonListPage />} />
             <Route path="pokemon/:pokemonName" element={<PokemonDetailPage />} />
             <Route path="types" element={<TypesPage />} />
             <Route path="types/:typeName" element={<TypesDetailPage />} />

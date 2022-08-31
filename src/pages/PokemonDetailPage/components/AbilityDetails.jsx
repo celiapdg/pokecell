@@ -1,8 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import { useMemo, useState } from "react";
-import { getAbility } from "../../helpers/getPokemonData";
-import { useFetch } from "../../hooks/useFetch";
-import { LoadingMessage } from "./LoadingMessage";
+import { getAbility } from "../../../helpers/getPokemonData";
+import { useFetch } from "../../../hooks/useFetch";
+import { LoadingMessage } from "../../components";
+
+
 
 export const AbilityDetails = ({ url }) => {
 

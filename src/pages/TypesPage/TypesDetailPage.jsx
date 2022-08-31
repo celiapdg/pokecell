@@ -1,9 +1,9 @@
 import { Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-import { typeIdMapping } from "../helpers/typeColorMapping";
-import { useFetch } from "../hooks/useFetch";
+import { typeIdMapping } from "../../helpers/typeColorMapping";
+import { useFetch } from "../../hooks/useFetch";
 import { TypeTag } from "./components";
-import { MainLayout } from "./layouts/MainLayout";
+import { MainLayout } from "../layouts/MainLayout";
 
 
 const baseURL = 'https://pokeapi.co/api/v2'

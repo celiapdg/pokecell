@@ -18,7 +18,7 @@ export const useInfiniteFetch = (limit, offset, type) => {
             switch (type) {
                 case 'pokemon':
                     // para la api de pokemon hay que hacer una llamada para cada imagen
-                    const finalListPromises = data.results.map(async (poke) => {
+                    const finalPokePromises = data.results.map(async (poke) => {
                         const res = await axios.get(poke.url);
                         poke.imgDef = res.data.sprites.other["official-artwork"].front_default;
                         poke.types = res.data.types.map(type => type.type);
@@ -26,11 +26,29 @@ export const useInfiniteFetch = (limit, offset, type) => {
                         // console.log(res.data.sprites.other.home.front_shiny);
                         return poke;
                     })
-                    const finalList = await Promise.all(finalListPromises);
-                    await setList((prev) => [...prev, ...finalList]);
+                    const finalPokeList = await Promise.all(finalPokePromises);
+                    await setList((prev) => [...prev, ...finalPokeList]);
                     break;
                 case 'move':
+                    const finalMovePromises = data.results.map(async (move) => {
+                        const res = await axios.get(move.url);
+                        //console.log(res.data)
+                        const parsedMove = {
+                            name: res.data.name,
+                            type: res.data.type.name,
+                            power: res.data.power,
+                            pp: res.data.pp,
+                            damageClass: res.data.damage_class.name,
+                            effect: res.data.effect_entries[0].effect,
+                            accuracy: res.data.accuracy,
+                            learnedBy: res.data.learned_by_pokemon
+                        }
 
+                        return parsedMove;
+                    })
+                    const finalMoveList = await Promise.all(finalMovePromises);
+
+                    await setList((prev) => [...prev, ...finalMoveList]);
                     break;
 
                 default:
@@ -39,6 +57,7 @@ export const useInfiniteFetch = (limit, offset, type) => {
 
             setLoading(false);
         } catch (err) {
+            console.log(err);
             setError(err);
         }
     }, [offset]);

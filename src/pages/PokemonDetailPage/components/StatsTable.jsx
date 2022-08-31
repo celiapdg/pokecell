@@ -2,6 +2,7 @@ import {
     Paper, Grid, Typography
 } from "@mui/material"
 
+// TODO: Convertir a barras que se llenan con el valor sobre 110? cuál es el máximo?
 export const StatsTable = ({ stats = {} }) => {
     return (
         <Grid container component={Paper} elevation={0} p={2} justifyContent='space-around'

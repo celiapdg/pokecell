@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
@@ -15,7 +14,8 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { CloudUploadOutlined } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
-const pages = ['pokemon', 'types', 'skills'];
+const pagesLeft = ['pokemons', 'types'];
+const pagesRight = ['skills', 'teams'];
 const rightMenu = ['Import', 'Export'];
 
 export const Navbar = () => {
@@ -38,31 +38,34 @@ export const Navbar = () => {
     };
 
     return (
-        <AppBar position="static"
-            sx={{ backgroundColor: 'error.main' }}>
-            <Container maxWidth="xl"
-            >
-                <Toolbar disableGutters>
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-                    <Typography
-                        variant="h4"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        POKECELL
-                    </Typography>
-
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+        <AppBar elevation={0}
+            sx={{
+                zIndex: (theme) => theme.zIndex.drawer + 1,
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: { xs: 75, sm: 80, md: 90 },
+                width: {
+                    xs: '100%', md: '90%', lg: '80%'
+                },
+                margin: '0 auto',
+                backgroundColor: 'rgba(0,74,173,0.9)',
+                borderRadius: {
+                    xs: '0px 0px 5% 5% / 30% 30%',
+                    md: '0px 0px 3.5% 3.5% / 35% 35%',
+                    xl: '0px 0px 3% 3% / 40% 40%'
+                }
+            }}>
+            <Container maxWidth="xl" sx={{
+                display: 'flex', justifyContent: 'center',
+                alignItems: 'center'
+            }} >
+                <Toolbar disableGutters sx={{
+                    width: '100%', display: 'flex', justifyContent: 'space-between',
+                    alignItems: 'center'
+                }}>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -91,36 +94,68 @@ export const Navbar = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
+                            {[...pagesLeft, ...pagesRight].map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                                     <Typography variant="h6" textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
                     </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                    <Typography
-                        variant="h4"
-                        noWrap
-                        component="a"
-                        href=""
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'flex', md: 'none' },
-                            flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        POKECELL
-                    </Typography>
+
+                    <Box display='flex' alignItems='center'>
+                        <AdbIcon sx={{ color: '#FFDE59', display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                        <Typography
+                            variant="h4"
+                            noWrap
+                            component="a"
+                            href=""
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'flex', md: 'none' },
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.1rem',
+                                color: '#FFDE59',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            POKECELL
+                        </Typography>
+                    </Box>
+
                     <Box sx={{
-                        flexGrow: 1, display: { xs: 'none', md: 'flex' }
+                        flexGrow: 1, display: { xs: 'none', md: 'flex' }, alignItems: 'center', justifyContent: 'center',
                     }}>
-                        {pages.map((page) => (
+                        {pagesLeft.map((page) => (
+                            <Button
+                                component={Link}
+                                to={`/${page}`}
+                                key={page}
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                <Typography px={2} variant="h6" textAlign="center">{page}</Typography>
+                            </Button>
+                        ))}
+                        <Typography
+                            variant="h4"
+                            mx={4}
+                            noWrap
+                            component="a"
+                            href="/"
+                            sx={{
+                                mr: 2,
+                                display: { xs: 'none', md: 'flex' },
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.1rem',
+                                color: '#FFDE59',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            POKECELL
+                        </Typography>
+                        {pagesRight.map((page) => (
                             <Button
                                 component={Link}
                                 to={`/${page}`}
@@ -166,7 +201,7 @@ export const Navbar = () => {
                     </Box>
                 </Toolbar>
             </Container>
-        </AppBar>
+        </AppBar >
     );
 };
 

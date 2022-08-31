@@ -2,18 +2,25 @@ export const getChains = (chain = {}) => {
 
     if (chain.evolves_to?.length > 0) {
         if (chain.evolves_to.length > 1) {
-            return chain.evolves_to.map((c) => [chain.species, ...getChains(c)]);
+            return chain.evolves_to.map((c) => [getTaxon(chain), ...getChains(c)]);
         }
         const nextEv = getChains(chain.evolves_to[0]);
 
-        if (!nextEv[0].name) {
+        if (!nextEv[0].species.name) {
             let res = []
             for (const element of nextEv) {
-                res.push([chain.species, ...element])
+                res.push([getTaxon(chain), ...element])
             }
             return res;
         }
-        return [chain.species, ...nextEv]
+        return [getTaxon(chain), ...nextEv]
 
-    } else return [chain.species];
+    } else {
+        return [getTaxon(chain)];
+    }
+}
+
+
+const getTaxon = (chainElement) => {
+    return { species: chainElement.species, details: chainElement.evolution_details }
 }

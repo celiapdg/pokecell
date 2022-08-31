@@ -18,6 +18,7 @@ export const useFetch = (url) => {
             else await setRes(data)
             setLoading(false);
         } catch (err) {
+            console.log(err);
             setError(err);
         }
     }, [url]);

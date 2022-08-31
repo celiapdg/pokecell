@@ -5,12 +5,11 @@ import { getPokemon } from "../helpers/getPokemonData";
 
 const baseURL = 'https://pokeapi.co/api/v2'
 
-export const useFetchEvolutions = (url, d) => {
+export const useFetchEvolutions = (url) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [res, setRes] = useState([]);
     const [chains, setChains] = useState([]);
-
 
     const sendQuery = useCallback(async () => {
         try {
@@ -18,45 +17,33 @@ export const useFetchEvolutions = (url, d) => {
             await setError(false);
             const { data } = await axios.get(url);
 
-            await setChains(await getChains(data.chain));
-            await console.log('1', chains)
+            let tempChains = getChains(data.chain);
 
-            // if (!!tempChains[0].name) await setChains([tempChains]);
-            // else await setChains(tempChains);
-            // console.log('2', chains)
+            if (!!tempChains[0].species.name) tempChains = [tempChains];;
 
-
-            const rawData = await Promise.all(chains.map(async (chain) => {
-                console.log('2', chain)
-                return await Promise.all(chain.map(async (pokemon) => {
+            await Promise.all(tempChains.map((chain) => {
+                return Promise.all(chain.map((taxon) => {
                     //console.log(`${baseURL}/pokemon/${pokemon.name}`)
-                    return await axios.get(`${baseURL}/pokemon/${pokemon.name}`);
+                    return axios.get(`${baseURL}/pokemon/${taxon.species.name}`);
                 })).then(function (data) {
                     return data
                 })
             })).then(function (data) {
+                setRes(data)
+                setChains(tempChains)
+                setLoading(false);
                 return data
             })
 
-
-            console.log('3', rawData)
-
-            if (rawData.length > 0) {
-                await setRes(rawData)
-                await setLoading(false);
-
-            } else {
-                //sendQuery()
-            }
-
         } catch (err) {
+            console.log(err);
             setError(err);
         }
     }, [url]);
 
     useEffect(() => {
         sendQuery();
-    }, [sendQuery, url, d]);
+    }, [sendQuery, url]);
 
-    return { loading, error, res };
+    return { loading, error, res, chains };
 }

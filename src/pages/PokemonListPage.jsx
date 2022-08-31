@@ -1,12 +1,20 @@
 import { Grid } from "@mui/material";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useInfiniteFetch } from "../hooks/useInfiniteFetch";
-import { ContentCard, TypeTag } from "./components";
+import { ContentCard, PokeCard } from "./components";
 import { LoadingMessage } from "./components/LoadingMessage";
+import { PokeFilterSidebar } from "./components/PokeFilterSidebar";
 import { MainLayout } from "./layouts/MainLayout";
+import { TypeTag } from "./TypesPage/components";
 
 
 export const PokemonListPage = () => {
+
+    const route = useParams();
+    const types = useMemo(() => {
+        return route['*']?.split('/');
+    }, [route]);
 
     const limit = 24;
     const [offset, setOffset] = useState(0);
@@ -31,31 +39,34 @@ export const PokemonListPage = () => {
         if (loader.current) observer.observe(loader.current);
     }, [handleObserver]);
 
+
     return (
         <>
             <MainLayout>
+
                 <Grid container
                     alignItems="center"
                     justifyContent="center">
-                    {list.map((pokemon, i) => (
-                        <Grid item
-                            p={2} xs={6} sm={4} md={3} xl={2}
-                            key={i}>
-                            <ContentCard
-                                title={pokemon.name}
-                                variant='h5'
-                                route={`/pokemon/${pokemon.name}`}
-                                img={pokemon.imgDef}>
-                                {pokemon.types.map((type) => (
-                                    <TypeTag
-                                        key={`${pokemon.name}-${type.name}`}
-                                        name={type.name}
-                                    />
-                                ))
-                                }
-                            </ContentCard>
-                        </Grid>
-                    ))}
+                    {list.map((pokemon, i) => {
+                        return (!types || pokemon.types.some(r => types.indexOf(r.name) >= 0)) &&
+                            (<Grid item
+                                p={1} xs={6} sm={4.8} md={3.5} lg={3} xl={2.4}
+                                key={i}>
+                                <PokeCard
+                                    title={pokemon.name}
+                                    route={`/pokemon/${pokemon.name}`}
+                                    img={pokemon.imgDef}>
+                                    {pokemon.types.map((type) => (
+                                        <TypeTag
+                                            key={`${pokemon.name}-${type.name}`}
+                                            name={type.name}
+                                        />
+                                    ))
+                                    }
+                                </PokeCard>
+                            </Grid>)
+                    }
+                    )}
 
                     {loading && <LoadingMessage variant='h5' />}
                     {error && <p>Error!</p>}

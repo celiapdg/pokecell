@@ -1,9 +1,9 @@
 import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useFetch } from "../hooks/useFetch";
+import { useFetch } from "../../hooks/useFetch";
 import { TypeTag } from "./components";
-import { LoadingMessage } from "./components/LoadingMessage";
-import { MainLayout } from "./layouts/MainLayout";
+import { LoadingMessage } from "../components/LoadingMessage";
+import { MainLayout } from "../layouts/MainLayout";
 
 const baseURL = 'https://pokeapi.co/api/v2'
 
@@ -28,8 +28,7 @@ export const TypesPage = () => {
                             }}
                             item key={`${type.name}`}>
                             <TypeTag
-                                padding={2}
-                                variant='h3'
+                                size='xl'
                                 name={type.name}
                                 url={type.url} />
                         </Grid>
