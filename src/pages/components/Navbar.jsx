@@ -37,35 +37,38 @@ export const Navbar = () => {
         setAnchorElUser(null);
     };
 
+    const barHeight = { xs: 150, sm: 160, md: 180 }
+    const barTop = { xs: -75, sm: -80, md: -90 }
+
     return (
         <AppBar elevation={0}
             sx={{
                 zIndex: (theme) => theme.zIndex.drawer + 1,
                 position: "fixed",
-                top: 0,
+                top: barTop,
                 left: 0,
                 right: 0,
-                height: { xs: 75, sm: 80, md: 90 },
+                height: barHeight,
                 width: {
-                    xs: '100%', md: '90%', lg: '80%'
-                },
+                    xs: '100%', md: '92%', lg: '84%'
+                }, maxWidth: '1500px',
                 margin: '0 auto',
                 backgroundColor: 'rgba(0,74,173,0.9)',
                 borderRadius: {
-                    xs: '0px 0px 5% 5% / 30% 30%',
-                    md: '0px 0px 3.5% 3.5% / 35% 35%',
-                    xl: '0px 0px 3% 3% / 40% 40%'
-                }
+                    md: '0px 0px 8% 8% / 50% 50%',
+                    xl: '0px 0px 8% 8% / 50% 50%'
+                }, display: 'flex', justifyContent: 'flex-end',
             }}>
             <Container maxWidth="xl" sx={{
                 display: 'flex', justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'flex-end', paddingBottom: '10px',
             }} >
                 <Toolbar disableGutters sx={{
-                    width: '100%', display: 'flex', justifyContent: 'space-between',
-                    alignItems: 'center'
+                    width: {
+                        xs: '100%', md: '90%'
+                    }, justifyContent: 'space-around'
                 }}>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' }, }}>
                         <IconButton
                             size="large"
                             aria-label="account of current user"

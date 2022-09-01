@@ -7,7 +7,7 @@ export const TypeTag = ({ name, variant, padding = 0.7, size = 'md' }) => {
         xs: {
             fontSize: '1em',
             padding: 0.1,
-            margin: 0,
+            margin: 0.2,
             borderRadius: '10px',
         },
         md: {

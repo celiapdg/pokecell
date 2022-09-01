@@ -53,31 +53,27 @@ export const PokemonDetailPage = () => {
                 : (
                     <Grid container
                         justifyContent="center"
-                        mt={2} spacing={2}
-                        style={{
-                            backgroundColor: '#FFF',
-                            borderRadius: '1%'
-                        }}>
+                        mt={2} spacing={2}>
                         <Grid container
                             justifyContent="center"
                             m={0} spacing={2}>
+                            <Typography
+                                variant='h3'
+                                component="div"
+                                textAlign='center'
+                                sx={{
+                                    width: '100%',
+                                    textTransform: 'capitalize',
+                                    fontFamily: 'monospace',
+                                    fontWeight: 700,
+                                }}>
+                                {dataReady.p && `${pokemon.name}`}
 
+                            </Typography>
                             <Grid item xs={12} sm={10} md={5} lg={4} xl={4}
                                 textAlign='center'
                                 p={2}>
-                                <Typography
-                                    variant='h3'
-                                    component="div"
-                                    textAlign='center'
-                                    sx={{
-                                        width: '100%',
-                                        textTransform: 'capitalize',
-                                        fontFamily: 'monospace',
-                                        fontWeight: 700,
-                                    }}>
-                                    {dataReady.p && `${pokemon.name}`}
 
-                                </Typography>
                                 {!dataReady.p && <LoadingMessage />}
                                 {dataReady.p &&
                                     <Box
@@ -97,42 +93,42 @@ export const PokemonDetailPage = () => {
                                         </Box>
                                     ))
                                 }
+                                <Grid item mt={4}>
+                                    <Typography display='block' variant='h5' sx={{ width: '100%', fontFamily: 'monospace', fontWeight: 700 }}>Habitat</Typography>
+                                    {dataReady.s &&
+                                        <ContentCard className='plain' title={species.habitat}
+                                            fixed={true}
+                                            img={`../src/assets/habitat/${habitatImage[species.habitat]}`} />
 
-                            </Grid>
-                            <Grid item xs={12} sm={10} md={7} lg={4} xl={4} alignSelf='flex-end'
-                                textAlign='center' sx={{ height: 'adjust-content' }}
-                                p={2} >
-                                <Grid container direction='column' justifyContent='end'>
-                                    {!dataReady.p && <LoadingMessage />}
-                                    {dataReady.p && <StatsTable stats={pokemon.stats} />}
-                                    <Grid item mt={4}>
-                                        <Typography display='block' variant='h5' sx={{ width: '100%', fontFamily: 'monospace', fontWeight: 700 }}>Habitat</Typography>
-                                        {dataReady.s &&
-                                            <ContentCard className='plain' title={species.habitat}
-                                                fixed={true}
-                                                img={`../src/assets/habitat/${habitatImage[species.habitat]}`} />
-
-                                        }
-                                    </Grid>
+                                    }
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12} sm={10} lg={4} xl={4} alignSelf='flex-end'
-                                textAlign='center'
+                            <Grid item xs={12} sm={10} lg={8}
+                                textAlign='center' sx={{ height: 'adjust-content' }}
                                 p={2} >
-                                {dataReady.p && <AbilitiesTable abilitiesUrls={pokemon.abilities} />}
+                                <Grid container>
+                                    {!dataReady.p && <LoadingMessage />}
+                                    <Grid item xs={12} xl={6}>
+                                        {dataReady.p && <StatsTable stats={pokemon.stats} />}
+                                    </Grid>
+                                    <Grid item xs={12} xl={6}>
+                                        {dataReady.p && <AbilitiesTable abilitiesUrls={pokemon.abilities} />}
+                                    </Grid>
+                                </Grid>
+                                <Grid container display={{ xs: 'none', xl: 'flex' }} justifyContent='center'>
+
+                                    {dataReady.s && <EvolutionChain evolutionUrl={species.evolutionUrl} />}
+                                </Grid>
+
                             </Grid>
-                        </Grid>
-                        <Grid container
-                            justifyContent="center"
-                            p={1} spacing={2} sx={{ width: '100%' }}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} display={{ xs: 'block', xl: 'none' }} justifyContent='center'>
+
                                 {dataReady.s && <EvolutionChain evolutionUrl={species.evolutionUrl} />}
                             </Grid>
-
                         </Grid>
                     </Grid>
                 )
             }
-        </MainLayout>
+        </MainLayout >
     )
 }

@@ -4,7 +4,7 @@ import { TypeTag } from "../../TypesPage/components"
 export const SkillCard = ({ move }) => {
 
     return (
-        <Card p={0} sx={{ borderRadius: '40px' }}>
+        <Card p={0} sx={{ borderRadius: '30px' }}>
             <CardActionArea >
                 <CardContent >
                     <Grid container spacing={1}

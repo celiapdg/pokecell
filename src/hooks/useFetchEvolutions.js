@@ -19,7 +19,7 @@ export const useFetchEvolutions = (url) => {
 
             let tempChains = getChains(data.chain);
 
-            if (!!tempChains[0].species.name) tempChains = [tempChains];;
+            if (!!tempChains[0].species?.name) tempChains = [tempChains];;
 
             await Promise.all(tempChains.map((chain) => {
                 return Promise.all(chain.map((taxon) => {
