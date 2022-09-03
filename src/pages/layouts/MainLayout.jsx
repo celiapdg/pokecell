@@ -20,8 +20,8 @@ export const MainLayout = ({ children, sidebar }) => {
                 <CssBaseline />
                 <Navbar />
                 <Paper style={styles} elevation={0} square
-                    sx={{ minHeight: '100vh', minWidth: '100vw', zIndex: 0 }}>
-                    <Grid container pt={10} >
+                    sx={{ minHeight: '100vh', width: '100vw', zIndex: 0 }}>
+                    <Grid container pt={11} >
                         {!!sidebar &&
                             <Grid item xs={2}>
                                 {sidebar}

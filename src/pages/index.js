@@ -1,6 +1,6 @@
 export * from './LandingPage'
 export * from './PokemonDetailPage/PokemonDetailPage'
-export * from './PokemonListPage'
+export * from './PokemonListPage/PokemonListPage'
 export * from './SkillsPage/SkillsPage'
 export * from './TypesPage/TypesPage'
 export * from './TypesPage/TypesDetailPage'

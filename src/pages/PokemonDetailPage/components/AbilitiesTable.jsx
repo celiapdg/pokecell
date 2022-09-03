@@ -6,7 +6,7 @@ export const AbilitiesTable = ({ abilitiesUrls = [] }) => {
     return (
         <Grid container p={2}
             sx={{ fontFamily: 'monospace' }}>
-            <Typography display='block' variant='h5' sx={{ width: '100%', fontFamily: 'monospace', fontWeight: 700 }}>Passives</Typography>
+            <Typography display='block' variant='h5' sx={{ width: '100%', fontWeight: 700 }}>Passives</Typography>
             {
                 abilitiesUrls.map(url => <AbilityDetails key={url} url={url} />)
             }

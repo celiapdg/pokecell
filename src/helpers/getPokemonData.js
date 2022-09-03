@@ -29,6 +29,12 @@ export const getSpecies = (resS) => {
         species.evolutionUrl = resS.evolution_chain.url;
         species.generation = resS.generation.name;
         species.habitat = resS.habitat?.name || 'unknown';
+        for (let desc of resS.flavor_text_entries) {
+            if (desc.language.name === 'en') {
+                species.description = desc.flavor_text.replace('\f', ' ');
+                break;
+            }
+        }
 
         return species;
     }
@@ -38,7 +44,10 @@ export const getAbility = (resA) => {
     if (resA) {
         const ability = {}
         ability.name = resA.name;
-        ability.effect = resA.effect_entries[1].short_effect;
+        ability.effect =
+            resA.effect_entries.map(effect => {
+                if (effect.language.name === 'en') return effect.short_effect;
+            })
         return ability;
     }
 }

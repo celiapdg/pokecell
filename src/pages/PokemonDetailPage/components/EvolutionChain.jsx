@@ -6,6 +6,7 @@ import { useFetchEvolutions } from "../../../hooks/useFetchEvolutions"
 import { PokeCard } from "../../components";
 import { ContentCard } from "../../components/ContentCard";
 import { LoadingMessage } from "../../components/LoadingMessage"
+import { TypeIcon } from "../../TypesPage/components/TypeIcon";
 import { TypeTag } from "../../TypesPage/components/TypeTag";
 import { EvolutionArrow } from "./EvolutionArrow";
 
@@ -56,10 +57,8 @@ export const EvolutionChain = ({ evolutionUrl = '' }) => {
                                             fixed={false}
                                             img={p.pokemon.img}>
                                             {p.pokemon.types.map((type) => (
-                                                <TypeTag size='xs'
-                                                    key={`${p.pokemon.name}-${type.name}-${i + j}`}
-                                                    name={type.name}
-                                                />
+                                                <TypeIcon key={`${p.pokemon.name}-${type.name}-${i + j}`}
+                                                    size='xs' name={type.name} />
                                             ))
                                             }
                                         </PokeCard>

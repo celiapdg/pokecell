@@ -17,8 +17,8 @@ export const typeColorMapping = {
     dragon: '#6a7baf',
     dark: '#736c75',
     fairy: '#e397d1',
-    unknown: 'rgb(145, 62, 145)',
-    shadow: '#26a69a',
+    // unknown: 'rgb(145, 62, 145)',
+    // shadow: '#26a69a',
 
 }
 

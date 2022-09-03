@@ -24,7 +24,7 @@ export const TypesPage = () => {
                         <Grid p={2}
                             component={Link} to={`/types/${type.name}`}
                             sx={{
-                                color: 'inherit'
+                                color: 'inherit', textDecoration: 'none'
                             }}
                             item key={`${type.name}`}>
                             <TypeTag

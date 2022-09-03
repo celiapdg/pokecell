@@ -46,6 +46,7 @@ export const PokemonDetailPage = () => {
 
     return (
         <MainLayout>
+
             {(!!errorP)
                 ? (
                     errorP.response.status // TODO: helper que gestione errores
@@ -64,13 +65,12 @@ export const PokemonDetailPage = () => {
                                 sx={{
                                     width: '100%',
                                     textTransform: 'capitalize',
-                                    fontFamily: 'monospace',
                                     fontWeight: 700,
                                 }}>
                                 {dataReady.p && `${pokemon.name}`}
 
                             </Typography>
-                            <Grid item xs={12} sm={10} md={5} lg={4} xl={4}
+                            <Grid item xs={12} sm={10} md={5} lg={4} xl={2.7}
                                 textAlign='center'
                                 p={2}>
 
@@ -85,16 +85,26 @@ export const PokemonDetailPage = () => {
                                 {dataReady.p &&
                                     pokemon.types.map((type) => (
                                         <Box key={`${pokemon.name}-${type.name}`}
-                                            component={Link} to={`/types/${type.name}`} sx={{ color: 'inherit' }}>
-                                            <TypeTag
-                                                size='lg'
-                                                name={type.name}
-                                            />
+                                            sx={{ display: 'inline-block' }}>
+                                            <Box
+                                                component={Link} to={`/types/${type.name}`}
+                                                sx={{ color: 'inherit', textDecoration: 'none' }}>
+                                                <TypeTag
+                                                    size='lg'
+                                                    name={type.name}
+                                                />
+                                            </Box>
                                         </Box>
+
+
                                     ))
+
                                 }
+
                                 <Grid item mt={4}>
-                                    <Typography display='block' variant='h5' sx={{ width: '100%', fontFamily: 'monospace', fontWeight: 700 }}>Habitat</Typography>
+                                    {dataReady.s && <Typography display='block' pb={3} sx={{ width: '100%' }}>{species.description}</Typography>}
+
+                                    <Typography display='block' variant='h5' sx={{ width: '100%', fontWeight: 700 }}>Habitat</Typography>
                                     {dataReady.s &&
                                         <ContentCard className='plain' title={species.habitat}
                                             fixed={true}
