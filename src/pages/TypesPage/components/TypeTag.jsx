@@ -60,7 +60,7 @@ export const TypeTag = ({ name, variant, padding = 0.7, size = 'md' }) => {
                 }}> {name.toUpperCase()}</Typography >
             <Box
                 component="img"
-                src={'../../src/assets/icons/' + name + '.svg'}
+                src={'/src/assets/icons/' + name + '.svg'}
                 sx={{
                     display: 'inline-block',
                     width: sizes[size].sizeIcon,

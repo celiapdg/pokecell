@@ -22,10 +22,30 @@ html {
     pointer-events: none;
 }
 
+.prueba:hover .bounce {
+    animation: pulse;
+    animation-duration: 1s;
+}
+
 .full {
     -webkit-transition: width 0.5s ease-in-out;
     -moz-transition: width 0.5s ease-in-out;
     -o-transition: width 0.5s ease-in-out;
     -ms-transition: width 0.5s ease-in-out;
     transition: width 0.5s ease-in-out;
+}
+
+
+
+.hidden-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hidden-scroll {
+    cursor: grab;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }

@@ -7,6 +7,7 @@ import { LoadingMessage } from "../components/LoadingMessage";
 import { PokeFilterBar } from "./components/PokeFilterBar";
 import { MainLayout } from "../layouts/MainLayout";
 import { TypeIcon } from "../TypesPage/components/TypeIcon";
+import { parseName } from "../../helpers/parseInfo";
 
 
 export const PokemonListPage = () => {
@@ -17,28 +18,26 @@ export const PokemonListPage = () => {
     }, [route]);
 
 
-    const limit = 24;
+    const limit = 110;
     const [offset, setOffset] = useState(0);
     const { loading, error, list } = useInfiniteFetch(limit, offset, 'pokemon');
-    // console.log(list)
-    const loader = useRef(null);
+    console.log('length', list.length)
 
-    const handleObserver = useCallback((entries) => {
-        const target = entries[0];
-        if (target.isIntersecting) {
-            setOffset((prev) => prev + limit);
-        }
-    }, []);
 
-    useEffect(() => {
-        const option = {
-            root: null,
-            rootMargin: "40px",
-            threshold: 0
-        };
-        const observer = new IntersectionObserver(handleObserver, option);
-        if (loader.current) observer.observe(loader.current);
-    }, [handleObserver]);
+    const observer = useRef(); // (*)
+    const loadingRef = useCallback(  // (*)
+        (node) => {
+            if (loading) return;
+            if (observer.current) observer.current.disconnect();
+            observer.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    setOffset(() => list.length);
+                }
+            });
+            if (node) observer.current.observe(node);
+        },
+        [loading]
+    );
 
 
     return (
@@ -48,13 +47,14 @@ export const PokemonListPage = () => {
                 <PokeFilterBar />
                 <Grid container
                     alignItems="center"
-                    justifyContent="center">
+                    justifyContent="center" pb={5}>
                     {list.map((pokemon, i) => {
                         return (!types || pokemon.types.some(r => types.indexOf(r.name) >= 0)) &&
                             (
                                 <PokeCard key={i}
-                                    title={pokemon.name}
-                                    route={`/pokemon/${pokemon.name}`}
+                                    id={pokemon.id}
+                                    name={parseName(pokemon.name)}
+                                    route={`/pokemon/${pokemon.id}`}
                                     img={pokemon.imgDef}>
                                     {pokemon.types.map((type) => (
                                         <TypeIcon key={`${pokemon.name}-${type.name}`}
@@ -66,9 +66,11 @@ export const PokemonListPage = () => {
                     }
                     )}
 
-                    {loading && <LoadingMessage variant='h5' />}
+                    <div style={{ width: '100%' }}>
+                        {(loading && list.length < 898) && <LoadingMessage variant='h5' />}
+                        {(!loading && list.length < 898) && <div style={{ width: '100%', height: 10 }} ref={loadingRef} />}
+                    </div>
                     {error && <p>Error!</p>}
-                    <div ref={loader} />
                 </Grid>
             </MainLayout>
 

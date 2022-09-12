@@ -1,7 +1,11 @@
+import { parseIdFromUrl } from "./parseInfo";
+
 export const getPokemon = (resP) => {
     if (resP) {
         const pokemon = { name: resP.name }
-        pokemon.img = resP.sprites.other["official-artwork"].front_default;
+        pokemon.id = resP.id;
+        pokemon.img = resP.sprites.front_default;
+        pokemon.art = resP.sprites.other["official-artwork"].front_default;
         pokemon.imgHome = resP.sprites.other.home.front_default;
         pokemon.imgHomeShiny = resP.sprites.other.home.front_shiny;
         pokemon.imgHomeF = resP.sprites.other.home.front_female;
@@ -35,6 +39,17 @@ export const getSpecies = (resS) => {
                 break;
             }
         }
+        species.varieties = resS.varieties.map((variety) => {
+            return {
+                ...variety,
+                pokemon: {
+                    ...variety.pokemon,
+                    id: parseIdFromUrl(variety.pokemon.url)
+                }
+            }
+        })
+
+        console.log(species)
 
         return species;
     }

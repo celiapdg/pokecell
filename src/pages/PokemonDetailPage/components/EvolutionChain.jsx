@@ -1,13 +1,11 @@
-import { ArrowForward, ArrowForwardIos } from "@mui/icons-material";
 import { Box, Grid, Typography } from "@mui/material";
 import { useMemo, useState } from "react";
 import { getPokemon } from "../../../helpers/getPokemonData";
+import { parseName } from "../../../helpers/parseInfo";
 import { useFetchEvolutions } from "../../../hooks/useFetchEvolutions"
 import { PokeCard } from "../../components";
-import { ContentCard } from "../../components/ContentCard";
 import { LoadingMessage } from "../../components/LoadingMessage"
 import { TypeIcon } from "../../TypesPage/components/TypeIcon";
-import { TypeTag } from "../../TypesPage/components/TypeTag";
 import { EvolutionArrow } from "./EvolutionArrow";
 
 export const EvolutionChain = ({ evolutionUrl = '' }) => {
@@ -51,7 +49,8 @@ export const EvolutionChain = ({ evolutionUrl = '' }) => {
                                     {p.details.length > 0 && <EvolutionArrow details={p.details} />}
                                     <Grid item key={i + j} xs={3}>
                                         <PokeCard
-                                            title={p.pokemon.name}
+                                            id={p.pokemon.id}
+                                            name={parseName(p.pokemon.name)}
                                             variant='h6'
                                             route={`/pokemon/${p.pokemon.name}`}
                                             fixed={false}

@@ -20,7 +20,7 @@ export const ContentCard = ({ title,
         : imgHeight = { xs: 100, sm: 150, md: 200, xl: '100%' }
 
     return (
-        <Card elevation={elevation} sx={{ borderRadius: '50px' }}>
+        <Card elevation={elevation} sx={{ borderRadius: '50px' }} >
             <CardActionArea className={className} component={Link} to={route}>
                 <CardMedia
                     component="img"

@@ -14,6 +14,7 @@ export const TypesDetailPage = () => {
     const typeId = typeIdMapping[typeName];
     const callURL = `${baseURL}/type/${typeId}`;
     const { loading, error, res } = useFetch(callURL);
+    console.log(res)
     const dmg = res.damage_relations;
 
     return (

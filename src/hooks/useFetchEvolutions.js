@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { getChains } from "../helpers/getEvolutionChain";
-import { getPokemon } from "../helpers/getPokemonData";
 
 const baseURL = 'https://pokeapi.co/api/v2'
 
@@ -24,7 +23,7 @@ export const useFetchEvolutions = (url) => {
             await Promise.all(tempChains.map((chain) => {
                 return Promise.all(chain.map((taxon) => {
                     //console.log(`${baseURL}/pokemon/${pokemon.name}`)
-                    return axios.get(`${baseURL}/pokemon/${taxon.species.name}`);
+                    return axios.get(`${taxon.species.url.replace('-species', '')}`);
                 })).then(function (data) {
                     return data
                 })

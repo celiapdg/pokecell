@@ -1,6 +1,6 @@
 import { Box, FormControl, InputBase, MenuItem, Select } from '@mui/material';
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { typeColorMapping } from '../../../helpers/typeColorMapping';
 import { TypeTag } from '../../TypesPage/components';
 import { TypeIcon } from '../../TypesPage/components/TypeIcon';
@@ -8,8 +8,9 @@ import { TypeIcon } from '../../TypesPage/components/TypeIcon';
 
 export const PokeFilterBar = ({ }) => {
     const pathname = 'pokemons';
+    const route = useParams();
 
-    const [typeName, setTypeName] = useState([]);
+    const [typeName, setTypeName] = useState(route['*']?.split('/') || []);
     const types = Object.keys(typeColorMapping);
 
     let navigate = useNavigate();
@@ -55,7 +56,7 @@ export const PokeFilterBar = ({ }) => {
                         </Box>
                     )}
                     MenuProps={MenuProps}
-                    sx={{ borderRadius: '24px', height: '48px', px: 2 }}
+                    sx={{ borderRadius: '24px', minHeight: '48px', px: 2 }}
                 >
                     {types.map((type) => (
                         <MenuItem

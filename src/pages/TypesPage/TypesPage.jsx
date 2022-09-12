@@ -1,40 +1,33 @@
-import { Grid } from "@mui/material";
-import { Link } from "react-router-dom";
-import { useFetch } from "../../hooks/useFetch";
-import { TypeTag } from "./components";
-import { LoadingMessage } from "../components/LoadingMessage";
+import { Box } from "@mui/material";
 import { MainLayout } from "../layouts/MainLayout";
+import { TypesTable } from "./components/TypesTable";
+import useDraggableScroll from 'use-draggable-scroll';
+import { useRef } from "react";
 
-const baseURL = 'https://pokeapi.co/api/v2'
+
 
 export const TypesPage = () => {
-    const callURL = `${baseURL}/type/?limit=18`;
-    const { loading, error, res } = useFetch(callURL);
+    const ref = useRef(null);
+
+    const { onMouseDown } = useDraggableScroll(ref);
 
     return (
         <>
             <MainLayout>
 
-                <Grid container
-                    alignItems="center"
-                    justifyContent="center"
-                    p={6}>
-                    {loading && <LoadingMessage variant='h3' />}
-                    {!loading && res.map((type) => (
-                        <Grid p={2}
-                            component={Link} to={`/types/${type.name}`}
-                            sx={{
-                                color: 'inherit', textDecoration: 'none'
-                            }}
-                            item key={`${type.name}`}>
-                            <TypeTag
-                                size='xl'
-                                name={type.name}
-                                url={type.url} />
-                        </Grid>
-                    ))
-                    }
-                </Grid>
+                <Box position='fixed' maxWidth='fit-content'
+                    overflow='auto' className='hidden-scroll'
+                    ref={ref} onMouseDown={onMouseDown}
+                    top={{ xs: '75px', sm: '80px', md: '110px' }} bottom={0} left={0} right={0}
+                    sx={{
+                        margin: '0 auto',
+                        borderRadius: { md: '25px' },
+                        scrollSnapType: 'both'
+                    }}>
+                    <TypesTable />
+
+                </Box>
+
             </MainLayout>
 
         </>

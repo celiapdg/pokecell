@@ -10,9 +10,12 @@ export const StatsTable = ({ stats = {} }) => {
     return (
         <Box justifyContent='space-around'
             sx={{ fontSize: '1.4em' }}>
-            <Typography gutterBottom display='block' variant='h5' sx={{ width: '100%', fontWeight: 700 }}>Base Stats</Typography>
-
             <Grid container rowSpacing={1} justifyContent='center'>
+                <Grid item xs={3} />
+                <Grid item xs={9}>
+                    <Typography gutterBottom display='block' variant='h5' sx={{ width: '100%', fontWeight: 700 }}>Base Stats</Typography>
+                </Grid>
+
                 <Grid item xs={3} sx={statStyle}>
                     HP
                 </Grid>
@@ -24,7 +27,7 @@ export const StatsTable = ({ stats = {} }) => {
                                 fontSize: '0.7em',
                                 borderRadius: '12px'
                             }} />
-                        <Typography position='absolute' top={0} left={0} right={0}>{stats.hp}/255</Typography>
+                        <Typography position='absolute' top={0} left={0} right={0}>{stats.hp}</Typography>
                     </Box>
                 </Grid>
                 <Grid item xs={3} sx={statStyle}>
@@ -38,7 +41,7 @@ export const StatsTable = ({ stats = {} }) => {
                                 fontSize: '0.7em',
                                 borderRadius: '12px'
                             }} />
-                        <Typography position='absolute' top={0} left={0} right={0}>{stats.speed}/255</Typography>
+                        <Typography position='absolute' top={0} left={0} right={0}>{stats.speed}</Typography>
                     </Box>
                 </Grid>
                 <Grid item xs={3} sx={statStyle}>
@@ -52,7 +55,7 @@ export const StatsTable = ({ stats = {} }) => {
                                 fontSize: '0.7em',
                                 borderRadius: '12px'
                             }} />
-                        <Typography position='absolute' top={0} left={0} right={0}>{stats.attack}/255</Typography>
+                        <Typography position='absolute' top={0} left={0} right={0}>{stats.attack}</Typography>
                     </Box>
                 </Grid>
                 <Grid item xs={3} sx={statStyle}>
@@ -66,7 +69,7 @@ export const StatsTable = ({ stats = {} }) => {
                                 fontSize: '0.7em',
                                 borderRadius: '12px'
                             }} />
-                        <Typography position='absolute' top={0} left={0} right={0}>{stats.defense}/255</Typography>
+                        <Typography position='absolute' top={0} left={0} right={0}>{stats.defense}</Typography>
 
                     </Box>
                 </Grid>
@@ -83,7 +86,7 @@ export const StatsTable = ({ stats = {} }) => {
                                 fontSize: '0.7em',
                                 borderRadius: '12px'
                             }} />
-                        <Typography position='absolute' top={0} left={0} right={0}>{stats.sAttack}/255</Typography>
+                        <Typography position='absolute' top={0} left={0} right={0}>{stats.sAttack}</Typography>
 
                     </Box>
                 </Grid>
@@ -98,7 +101,7 @@ export const StatsTable = ({ stats = {} }) => {
                                 fontSize: '0.7em',
                                 borderRadius: '12px'
                             }} />
-                        <Typography position='absolute' top={0} left={0} right={0}>{stats.sDefense}/255</Typography>
+                        <Typography position='absolute' top={0} left={0} right={0}>{stats.sDefense}</Typography>
 
                     </Box>
                 </Grid>

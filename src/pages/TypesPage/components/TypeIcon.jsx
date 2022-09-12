@@ -14,12 +14,12 @@ export const TypeIcon = ({ name, size = 'md' }) => {
             sizeIcon: '28px',
         },
         lg: {
-            sizeBox: '42px',
-            sizeIcon: '28px',
+            sizeBox: '50px',
+            sizeIcon: '32px',
         },
         xl: {
-            sizeBox: '42px',
-            sizeIcon: '28px',
+            sizeBox: '60px',
+            sizeIcon: '36px',
         }
     }
 
@@ -35,7 +35,7 @@ export const TypeIcon = ({ name, size = 'md' }) => {
         }}>
             <Box
                 component="img"
-                src={'../../src/assets/icons/' + name + '.svg'}
+                src={'/src/assets/icons/' + name + '.svg'}
                 sx={{
                     display: 'inline-block',
                     width: sizes[size].sizeIcon,

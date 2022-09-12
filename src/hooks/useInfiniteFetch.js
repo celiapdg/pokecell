@@ -4,6 +4,8 @@ import axios from "axios";
 const baseURL = 'https://pokeapi.co/api/v2'
 
 export const useInfiniteFetch = (limit, offset, type) => {
+    console.log('limit', limit)
+    console.log('offset', offset)
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [list, setList] = useState([]);
@@ -17,17 +19,28 @@ export const useInfiniteFetch = (limit, offset, type) => {
 
             switch (type) {
                 case 'pokemon':
-                    // para la api de pokemon hay que hacer una llamada para cada imagen
-                    const finalPokePromises = data.results.map(async (poke) => {
-                        const res = await axios.get(poke.url);
-                        poke.imgDef = res.data.sprites.other["official-artwork"].front_default;
-                        poke.types = res.data.types.map(type => type.type);
-                        // console.log(res.data.sprites.other.home.front_default);
-                        // console.log(res.data.sprites.other.home.front_shiny);
-                        return poke;
-                    })
-                    const finalPokeList = await Promise.all(finalPokePromises);
-                    await setList((prev) => [...prev, ...finalPokeList]);
+                    if (list.length < 898) {
+
+                        // para la api de pokemon hay que hacer una llamada para cada imagen
+                        const finalPokePromises = data.results.map(async (poke) => {
+                            const res = await axios.get(poke.url);
+                            // console.log(res.data)
+                            poke.id = res.data.id;
+                            poke.imgDef = res.data.sprites.front_default;
+                            poke.types = res.data.types.map(type => type.type);
+                            // console.log(res.data.sprites.other.home.front_default);
+                            // console.log(res.data.sprites.other.home.front_shiny);
+                            return poke;
+                        })
+                        let finalPokeList = await Promise.all(finalPokePromises);
+                        if ([...new Set([...list, ...finalPokeList])].length > 898) {
+                            finalPokeList = [...new Set([...list, ...finalPokeList])].slice(0, 898);
+                        } else {
+                            finalPokeList = [...new Set([...list, ...finalPokeList])];
+                        }
+                        await setList([...finalPokeList]);
+                    }
+
                     break;
                 case 'move':
                     const finalMovePromises = data.results.map(async (move) => {
