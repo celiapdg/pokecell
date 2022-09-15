@@ -66,7 +66,3 @@ export const getAbility = (resA) => {
         return ability;
     }
 }
-
-export const getEvolutions = (resE) => {
-
-}

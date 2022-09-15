@@ -7,6 +7,7 @@ import { TypeIcon } from "./TypeIcon";
 const baseURL = 'https://pokeapi.co/api/v2'
 const callURL = `${baseURL}/type/?limit=18`;
 const types = Object.keys(typeIdMapping);
+const colors = {}
 
 export const TypesTable = () => {
     const { loading, error, res } = useFetchDamages(callURL);

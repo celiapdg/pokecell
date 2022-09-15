@@ -2,7 +2,7 @@ import { Box, CssBaseline, Grid, Paper } from "@mui/material"
 import { Navbar } from "../components/Navbar"
 
 const styles = {
-    backgroundColor: '#C7ECFF',
+    backgroundColor: '#ECEFF1',
     // backgroundImage: 'url(src/assets/pattern.jpg)',
     // backgroundSize: '30%'
 };
@@ -20,7 +20,7 @@ export const MainLayout = ({ children, sidebar }) => {
                         <Grid item xs={12} >
                             <Grid container
                                 alignItems="center"
-                                width={{ xs: '100%', md: '90%', lg: '80%' }}
+                                width={{ xs: '100%', lg: '90%', xl: '80%' }}
                                 maxWidth='1460px'
                                 sx={{ margin: '0 auto' }}>
                                 {children}

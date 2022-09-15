@@ -11,41 +11,64 @@ import { habitatImage } from "../../helpers/habitatImageMapping";
 import { TypeTag } from "../TypesPage/components";
 import { AbilitiesTable, EvolutionChain, StatsTable } from "./components";
 import { parseName } from "../../helpers/parseInfo";
+import { typeIdMapping } from "../../helpers/typeColorMapping";
+import { useFetchDamages } from "../../hooks/useFetchDamages";
+import { BasicProfile } from "./components/BasicProfile";
 
 const baseURL = 'https://pokeapi.co/api/v2'
-
+const callURL = `${baseURL}/type/?limit=18`;
+const types = Object.keys(typeIdMapping);
 
 export const PokemonDetailPage = () => {
 
-    const [dataReady, setDataReady] = useState({ p: false, s: false });
+    const [dataReady, setDataReady] = useState({ p: false, s: false, d: false });
     const { pokemonId } = useParams();
     const pokemonURL = `${baseURL}/pokemon/${pokemonId}`;
     const speciesURL = `${baseURL}/pokemon-species/${pokemonId}`;
     const { loading: loadingP, error: errorP, res: resP } = useFetch(pokemonURL);
     const { loading: loadingS, error: errorS, res: resS } = useFetch(speciesURL);
-
+    const { loading: loadingD, error: errorD, res: resD } = useFetchDamages(callURL);
 
     const pokemon = useMemo(() => {
         if (!loadingP) {
             if (!!resP) {
                 //console.log(resP)
-                setDataReady({ ...dataReady, p: true });
-                return getPokemon(resP);
+                const final = getPokemon(resP);
+                setDataReady((isReady) => ({ ...isReady, p: true }));
+                return final;
             }
         }
-    }, [resP]);
+    }, [resP, resS]);
 
     const species = useMemo(() => {
         if (!loadingS) {
             if (!!resS) {
                 // console.log(resS)
-                setDataReady({ ...dataReady, s: true });
-                return getSpecies(resS);
+                const final = getSpecies(resS);
+                setDataReady((isReady) => ({ ...isReady, s: true }));
+                return final;
             }
         }
-    }, [resS]);
+    }, [resS, resP]);
 
-
+    const dmgTable = useMemo(() => {
+        if (!loadingD) {
+            if (!!resD && !!pokemon) {
+                const typesId = pokemon.types.map(type => typeIdMapping[type.name]);
+                const final = resD.map((row) => {
+                    return typesId.map(id => {
+                        return row[id - 1]
+                    })
+                }).map((dmgs, i) => {
+                    return dmgs.reduce((dmg1, dmg2) => {
+                        return { [types[i]]: dmg1 * dmg2 }
+                    })
+                })
+                setDataReady((isReady) => ({ ...isReady, d: true }));
+                return final;
+            }
+        }
+    }, [resD, resP]);
 
     return (
         <MainLayout>
@@ -55,86 +78,29 @@ export const PokemonDetailPage = () => {
                     errorP.response.status // TODO: helper que gestione errores
                 )
                 : (
-                    <Grid container
+                    <Grid container width='100%'
                         justifyContent="center"
-                        mt={2} spacing={2}>
-                        <Grid container
-                            justifyContent="center"
-                            m={0} spacing={2}>
-                            <Box sx={{
-                                width: '100%',
-                                textAlign: 'center',
-                            }}>
-                                <Typography
-                                    variant='h4'
-                                    component="span"
-                                    textAlign='center'
-                                    sx={{
-                                        textTransform: 'capitalize',
-                                        fontWeight: 700,
-                                        color: '#8d8c8a'
-                                    }}>
-                                    {dataReady.p && `#${pokemon.id} `}
-                                </Typography>
-                                <Typography
-                                    variant='h3'
-                                    component="span"
-                                    textAlign='center'
-                                    sx={{
-                                        textTransform: 'capitalize',
-                                        fontWeight: 700,
-                                    }}>
-                                    {dataReady.p && `${parseName(pokemon.name)}`}
-                                </Typography>
-                            </Box>
-                            <Grid item xs={12} sm={10} md={5} lg={4} xl={2.7}
-                                textAlign='center'
+                        sx={{
+                            backgroundColor: '',
+                        }}>
+                        <Grid container position="relative"
+                            justifyContent={{ xs: "center", lg: "space-between" }}
+                            m={0}>
+
+                            <Grid item xs={12} sm={10} md={5} lg={4} xl={3.5}
+                                textAlign='center' position={{ lg: 'sticky' }} top={90} height='fit-content'
                                 p={2}>
-
+                                {dataReady.p && <BasicProfile pokemon={pokemon} />}
                                 {!dataReady.p && <LoadingMessage />}
-                                {dataReady.p &&
-                                    <Box
-                                        component="img"
-                                        alt={pokemon.name}
-                                        src={pokemon.art}
-                                        width={{ xs: '90%', md: '100%', filter: 'drop-shadow(1px 1px 1px #000)' }}
-                                    />}
-                                {dataReady.p &&
-                                    pokemon.types.map((type) => (
-                                        <Box key={`${pokemon.name}-${type.name}`}
-                                            sx={{ display: 'inline-block' }}>
-                                            <Box
-                                                component={Link} to={'/types'}
-                                                sx={{ color: 'inherit', textDecoration: 'none' }}>
-                                                <TypeTag
-                                                    size='lg'
-                                                    name={type.name}
-                                                />
-                                            </Box>
-                                        </Box>
-
-
-                                    ))
-
-                                }
-
-                                <Grid item mt={4}>
-                                    {dataReady.s && <Typography display='block' pb={3} sx={{ width: '100%' }}>{species.description}</Typography>}
-
-                                    <Typography display='block' variant='h5' sx={{ width: '100%', fontWeight: 700 }}>Habitat</Typography>
-                                    {dataReady.s &&
-                                        <ContentCard className='plain' title={species.habitat}
-                                            fixed={true}
-                                            img={`../src/assets/habitat/${habitatImage[species.habitat]}`} />
-
-                                    }
-                                </Grid>
                             </Grid>
-                            <Grid item xs={12} sm={10} lg={8}
-                                textAlign='center' sx={{ height: 'adjust-content' }}
+                            <Grid item xs={12} sm={10} lg={8} xl={8.5}
+                                textAlign='center' sx={{ height: 'adjust-content', }}
                                 p={2} >
-                                <Grid container>
+                                <Grid container alignItems="start">
                                     {!dataReady.p && <LoadingMessage />}
+                                    <Grid item mt={4} width='100%'>
+                                        {dataReady.s && <Typography display='block' pb={3} sx={{ width: '100%' }}>{species.description}</Typography>}
+                                    </Grid>
                                     <Grid item xs={12} xl={6}>
                                         {dataReady.p && <StatsTable stats={pokemon.stats} />}
                                     </Grid>
@@ -142,16 +108,24 @@ export const PokemonDetailPage = () => {
                                         {dataReady.p && <AbilitiesTable abilitiesUrls={pokemon.abilities} />}
                                     </Grid>
                                 </Grid>
+                                <Grid item mt={4}>
+                                    <Typography display='block' variant='h5' sx={{ width: '100%', fontWeight: 700 }}>Habitat</Typography>
+                                    {dataReady.s &&
+                                        <ContentCard className='plain' title={species.habitat}
+                                            fixed={true}
+                                            img={`../src/assets/habitat/${habitatImage[species.habitat]}`} />
+                                    }
+                                </Grid>
                                 <Grid container display={{ xs: 'none', xl: 'flex' }} justifyContent='center'>
 
                                     {dataReady.s && <EvolutionChain evolutionUrl={species.evolutionUrl} />}
                                 </Grid>
 
                             </Grid>
-                            <Grid item xs={12} display={{ xs: 'block', xl: 'none' }} justifyContent='center'>
+                        </Grid>
+                        <Grid item xs={12} display={{ xs: 'block', xl: 'none' }} justifyContent='center'>
 
-                                {dataReady.s && <EvolutionChain evolutionUrl={species.evolutionUrl} />}
-                            </Grid>
+                            {dataReady.s && <EvolutionChain evolutionUrl={species.evolutionUrl} />}
                         </Grid>
                     </Grid>
                 )

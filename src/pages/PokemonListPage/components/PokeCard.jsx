@@ -1,4 +1,4 @@
-import { Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from "@mui/material"
+import { Card, CardActionArea, CardContent, CardMedia, Grid, styled, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 
 export const PokeCard = ({ id, name,
@@ -6,19 +6,24 @@ export const PokeCard = ({ id, name,
     route = '',
     children }) => {
 
-    const imgWidth = { xs: 140, sm: 150, md: 170 }
-    const cardHeight = { xs: 220, sm: 235, md: 260 }
+    const imgWidth = { xs: 140, sm: 150, md: 170, lg: 190 }
+    const cardHeight = { xs: 220, sm: 235, md: 260, lg: 280 }
+    const StyledCardActionArea = styled(CardActionArea)(({ theme }) => `
+    .MuiCardActionArea-focusHighlight {
+        background: transparent;
+    }
+`);
 
     return (
-        <Card elevation={0} className='prueba'
+        <Card elevation={0} className='bounce-parent shadow'
             sx={{
                 height: cardHeight,
                 width: imgWidth,
-                margin: '0 5px',
+                margin: '0 8px',
                 backgroundColor: 'rgb(0,0,0,0)',
-                borderRadius: '50px'
+                borderRadius: '50px',
             }} >
-            <CardActionArea component={Link} to={route}>
+            <StyledCardActionArea component={Link} to={route} >
                 <CardMedia className="bounce"
                     component="img"
                     image={img}
@@ -27,6 +32,7 @@ export const PokeCard = ({ id, name,
                         width: imgWidth,
                         margin: '0 auto',
                         zIndex: 1000,
+
                     }}
                 />
                 <Card elevation={2} sx={{
@@ -61,7 +67,7 @@ export const PokeCard = ({ id, name,
                     </Grid>
 
                 </Card>
-            </CardActionArea>
+            </StyledCardActionArea>
         </Card>
     )
 }

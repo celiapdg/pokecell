@@ -6,7 +6,7 @@ export const useFetch = (url) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [res, setRes] = useState([]);
-
+    console.log(url)
 
     const sendQuery = useCallback(async () => {
         try {

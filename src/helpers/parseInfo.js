@@ -1,4 +1,5 @@
 export const parseName = (name) => {
+    name = name.replace('mr-', 'mr. ');
     name = name.split('-');
     return name[0];
 }

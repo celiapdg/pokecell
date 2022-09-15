@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
 import { typeIdMapping } from "../helpers/typeColorMapping";
+import { pokemonAPI } from "../api/pokemonAPI";
 
-const baseURL = 'https://pokeapi.co/api/v2/type/'
+
+
 const types = Object.keys(typeIdMapping);
 
 export const useFetchDamages = () => {
@@ -16,7 +17,7 @@ export const useFetchDamages = () => {
             await setLoading(true);
             await setError(false);
             const typesInfo = await Promise.all(types.map(async (type) => {
-                const { data } = await axios.get(baseURL + type);
+                const { data } = await pokemonAPI.get('/type/' + type);
                 return {
                     type,
                     dmg: data.damage_relations

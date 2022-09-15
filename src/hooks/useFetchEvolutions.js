@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
 import { getChains } from "../helpers/getEvolutionChain";
+import { pokemonAPI } from "../api/pokemonAPI";
+import { parseIdFromUrl } from "../helpers";
 
-const baseURL = 'https://pokeapi.co/api/v2'
 
-export const useFetchEvolutions = (url) => {
+export const useFetchEvolutions = (id) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [res, setRes] = useState([]);
@@ -14,7 +14,7 @@ export const useFetchEvolutions = (url) => {
         try {
             await setLoading(true);
             await setError(false);
-            const { data } = await axios.get(url);
+            const { data } = await pokemonAPI.get('/evolution-chain/' + id);
 
             let tempChains = getChains(data.chain);
 
@@ -23,7 +23,7 @@ export const useFetchEvolutions = (url) => {
             await Promise.all(tempChains.map((chain) => {
                 return Promise.all(chain.map((taxon) => {
                     //console.log(`${baseURL}/pokemon/${pokemon.name}`)
-                    return axios.get(`${taxon.species.url.replace('-species', '')}`);
+                    return pokemonAPI.get('/pokemon/' + parseIdFromUrl(taxon.species.url));
                 })).then(function (data) {
                     return data
                 })
@@ -38,11 +38,11 @@ export const useFetchEvolutions = (url) => {
             console.log(err);
             setError(err);
         }
-    }, [url]);
+    }, [id]);
 
     useEffect(() => {
         sendQuery();
-    }, [sendQuery, url]);
+    }, [sendQuery, id]);
 
     return { loading, error, res, chains };
 }

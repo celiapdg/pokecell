@@ -6,8 +6,7 @@ export const ContentCard = ({ title,
     route = '',
     variant,
     children, fixed,
-    className = '',
-    elevation = 1 }) => {
+    className = '', }) => {
 
     let imgWidth = {}
     fixed ?
@@ -20,7 +19,7 @@ export const ContentCard = ({ title,
         : imgHeight = { xs: 100, sm: 150, md: 200, xl: '100%' }
 
     return (
-        <Card elevation={elevation} sx={{ borderRadius: '50px' }} >
+        <Card elevation={0} className="shadow" sx={{ borderRadius: '50px' }} >
             <CardActionArea className={className} component={Link} to={route}>
                 <CardMedia
                     component="img"

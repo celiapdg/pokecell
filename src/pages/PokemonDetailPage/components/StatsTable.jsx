@@ -8,7 +8,7 @@ export const StatsTable = ({ stats = {} }) => {
     const statStyle = { fontWeight: 700, textAlign: 'right', pr: 2 }
 
     return (
-        <Box justifyContent='space-around'
+        <Box justifyContent='space-around' className="shadow"
             sx={{ fontSize: '1.4em' }}>
             <Grid container rowSpacing={1} justifyContent='center'>
                 <Grid item xs={3} />

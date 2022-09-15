@@ -1,21 +1,17 @@
 import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
-
-const baseURL = 'https://pokeapi.co/api/v2'
+import { pokemonAPI } from "../api/pokemonAPI";
+import { parseIdFromUrl } from "../helpers";
 
 export const useInfiniteFetch = (limit, offset, type) => {
-    console.log('limit', limit)
-    console.log('offset', offset)
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [list, setList] = useState([]);
-    const callURL = `${baseURL}/${type}/?limit=${limit}&offset=${offset}`;
 
     const sendQuery = useCallback(async () => {
         try {
             await setLoading(true);
             await setError(false);
-            const { data } = await axios.get(callURL);
+            const { data } = await pokemonAPI.get(`/${type}/?limit=${limit}&offset=${offset}`);
 
             switch (type) {
                 case 'pokemon':
@@ -23,10 +19,10 @@ export const useInfiniteFetch = (limit, offset, type) => {
 
                         // para la api de pokemon hay que hacer una llamada para cada imagen
                         const finalPokePromises = data.results.map(async (poke) => {
-                            const res = await axios.get(poke.url);
+                            const res = await pokemonAPI.get('/pokemon/' + parseIdFromUrl(poke.url));
                             // console.log(res.data)
                             poke.id = res.data.id;
-                            poke.imgDef = res.data.sprites.front_default;
+                            poke.imgDef = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.id}.png`
                             poke.types = res.data.types.map(type => type.type);
                             // console.log(res.data.sprites.other.home.front_default);
                             // console.log(res.data.sprites.other.home.front_shiny);
@@ -44,7 +40,7 @@ export const useInfiniteFetch = (limit, offset, type) => {
                     break;
                 case 'move':
                     const finalMovePromises = data.results.map(async (move) => {
-                        const res = await axios.get(move.url);
+                        const res = await pokemonAPI.get('/move/' + parseIdFromUrl(move.url));
                         //console.log(res.data)
                         const parsedMove = {
                             name: res.data.name,

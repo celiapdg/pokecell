@@ -22,9 +22,23 @@ html {
     pointer-events: none;
 }
 
-.prueba:hover .bounce {
+.bounce-parent:hover .bounce {
     animation: pulse;
     animation-duration: 1s;
+    filter: drop-shadow(8px 8px rgb(0, 0, 0, 0.1));
+
+}
+
+.bounce {
+    -webkit-transition: filter 0.5s ease-in-out;
+    -moz-transition: filter 0.5s ease-in-out;
+    -o-transition: filter 0.5s ease-in-out;
+    -ms-transition: filter 0.5s ease-in-out;
+    transition: filter 0.5s ease-in-out;
+}
+
+.shadow {
+    filter: drop-shadow(8px 8px 8px rgb(0, 0, 0, 0.1));
 }
 
 .full {
@@ -48,4 +62,8 @@ html {
     /* IE and Edge */
     scrollbar-width: none;
     /* Firefox */
+}
+
+.hover-info:hover {
+    cursor: grab;
 }

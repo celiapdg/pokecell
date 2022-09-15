@@ -41,7 +41,7 @@ export const Navbar = () => {
     const barTop = { xs: -75, sm: -80, md: -90 }
 
     return (
-        <AppBar elevation={0}
+        <AppBar elevation={0} className='shadow'
             sx={{
                 zIndex: (theme) => theme.zIndex.drawer + 1,
                 position: "fixed",
@@ -49,15 +49,9 @@ export const Navbar = () => {
                 left: 0,
                 right: 0,
                 height: barHeight,
-                width: {
-                    xs: '100%', md: '92%', lg: '84%'
-                }, maxWidth: '1500px',
                 margin: '0 auto',
-                backgroundColor: 'rgba(0,74,173,0.9)',
-                borderRadius: {
-                    md: '0px 0px 8% 8% / 50% 50%',
-                    xl: '0px 0px 8% 8% / 50% 50%'
-                }, display: 'flex', justifyContent: 'flex-end',
+                backgroundColor: '#fff',
+                display: 'flex', justifyContent: 'flex-end',
             }}>
             <Container maxWidth="xl" sx={{
                 display: 'flex', justifyContent: 'center',
@@ -118,7 +112,7 @@ export const Navbar = () => {
                                 fontFamily: 'monospace',
                                 fontWeight: 700,
                                 letterSpacing: '.1rem',
-                                color: '#FFDE59',
+                                color: '#263238',
                                 textDecoration: 'none',
                             }}
                         >
@@ -135,7 +129,7 @@ export const Navbar = () => {
                                 to={`/${page}`}
                                 key={page}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ my: 2, color: '#546e7a', display: 'block' }}
                             >
                                 <Typography px={2} variant="h6" textAlign="center">{page}</Typography>
                             </Button>
@@ -152,7 +146,7 @@ export const Navbar = () => {
                                 fontFamily: 'monospace',
                                 fontWeight: 700,
                                 letterSpacing: '.1rem',
-                                color: '#FFDE59',
+                                color: '#263238',
                                 textDecoration: 'none',
                             }}
                         >
@@ -164,7 +158,7 @@ export const Navbar = () => {
                                 to={`/${page}`}
                                 key={page}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ my: 2, color: '#546e7a', display: 'block' }}
                             >
                                 <Typography px={2} variant="h6" textAlign="center">{page}</Typography>
                             </Button>
@@ -175,7 +169,7 @@ export const Navbar = () => {
                         <Tooltip title="Open rightMenu">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <CloudUploadOutlined sx={{
-                                    color: 'white'
+                                    color: '#546e7a'
                                 }} />
                             </IconButton>
                         </Tooltip>
